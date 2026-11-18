@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - Universitas ABCD</title>
+
+    <link rel="stylesheet" href="/static/style.css?v=3">
+    <link rel="stylesheet" href="/static/bootstrap-icons/font/bootstrap-icons.min.css">
+
+</head>
+
+<body class="dashboard-page">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar" id="sidebar" aria-label="Navigasi utama">
+
+        <button type="button" class="sidebar-close" id="sidebarCloseBtn" aria-label="Tutup menu navigasi">
+            <i class="bi bi-x"></i>
+        </button>
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                ABCD
+            </div>
+
+            <div>
+                <strong>UNIVERSITAS</strong>
+                <span>ABCD</span>
+            </div>
+
+        </div>
+
+        <div class="menu-title">
+            MENU
+        </div>
+
+        <nav>
+
+            <a class="menu-item active" href="javascript:void(0)" onclick="showPage('dashboard', this)">
+                <span><i class="bi bi-houses"></i></span>
+                Dashboard
+            </a>
+
+            <a class="menu-item" href="javascript:void(0)" onclick="showPage('mahasiswa', this)">
+                <span><i class="bi bi-people-fill"></i></span>
+                Mahasiswa
+            </a>
+
+            <a class="menu-item" href="javascript:void(0)" onclick="showPage('profil', this)">
+                <span><i class="bi bi-person-circle"></i></span>
+                Profil
+            </a>
+
+            <a class="menu-item" href="javascript:void(0)" onclick="showPage('ujian', this)">
+                <span><i class="bi bi-journal-text"></i></span>
+                Ujian
+            </a>
+
+            <a class="menu-item" href="javascript:void(0)" onclick="showPage('jadwal-page', this)">
+                <span><i class="bi bi-calendar3"></i></span>
+                Jadwal
+            </a>
+
+            <a class="menu-item" href="javascript:void(0)" onclick="openAttendance()">
+                <span><i class="bi bi-camera-fill"></i></span>
+                Absensi
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a class="menu-item" href="javascript:void(0)" onclick="showPage('pengaturan', this)">
+                <span><i class="bi bi-gear-fill"></i></span>
+                Pengaturan
+            </a>
+
+            <a class="menu-item logout" href="javascript:void(0)" onclick="logout()">
+                <span><i class="bi bi-box-arrow-right"></i></span>
+                Keluar
+            </a>
+
+        </div>
+
+    </aside>
+
+    <!-- OVERLAY UNTUK DRAWER MOBILE -->
+
+    <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-label="Buka menu navigasi"
+                    aria-controls="sidebar" aria-expanded="false">
+                    <span class="hamburger-lines" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button>
+
+                <span class="breadcrumb">
+                    Universitas ABCD
+                </span>
+
+                <span class="breadcrumb-separator">
+                    /
+                </span>
+
+                <span class="breadcrumb-current">
+                    Dashboard
+                </span>
+
+            </div>
+
+            <div class="profile">
+
+                <div class="avatar" id="profileAvatar">
+                    GS
+                </div>
+
+                <div class="profile-info">
+
+                    <strong id="profileName">
+                        {{ student_name }}
+                    </strong>
+                    <span>
+                        Mahasiswa
+                    </span>
+
+                </div>
+
+                <span class="arrow">
+                    <i class="bi bi-chevron-down"></i>
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <section class="content">
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <div id="page-dashboard" class="dashboard-section">
+
+                <div class="welcome">
+
+                    <div>
+                        <h1>
+                            Selamat Datang,
+                            <span id="welcomeName">{{ student_name }}</span> <i class="bi bi-hand-wave-fill"></i>
+                        </h1>
+
+                        <p>
+                            Kelola aktivitas akademik dan absensi
+                            Anda melalui dashboard ini.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="stats">
+
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="bi bi-journal-bookmark-fill"></i></div>
+
+                        <div>
+                            <span>Total Mata Kuliah</span>
+                            <strong id="totalCourses">0</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="bi bi-check-circle-fill"></i></div>
+
+                        <div>
+                            <span>Kehadiran</span>
+                            <strong id="totalAttendance">0</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <div class="stat-icon purple"><i class="bi bi-percent"></i></div>
+
+                        <div>
+                            <span>Persentase Kehadiran</span>
+                            <strong id="attendancePercentage">0%</strong>
+                        </div>
+                    </div>
+
+
+                    <div class="stat-card">
+                        <div class="stat-icon orange"><i class="bi bi-calendar-event-fill"></i></div>
+
+                        <div>
+                            <span>Jadwal Hari Ini</span>
+                            <strong id="todaySchedules">0</strong>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Jadwal Kuliah</h2>
+
+                        <p>
+                            Jadwal perkuliahan Anda
+                        </p>
+                    </div>
+
+                    <button class="secondary-button" onclick="showPage('jadwal-page')">
+                        Lihat Semua
+                    </button>
+
+                </div>
+
+
+                <div class="schedule-grid" id="scheduleContainer">
+                    <p>Memuat jadwal...</p>
+                </div>
+
+            </div>
+
+
+            <!-- ================= MAHASISWA ================= -->
+
+            <div id="page-mahasiswa" class="dashboard-section page-section" style="display:none;">
+
+                <div class="page-title">
+                    <h1>Data Mahasiswa</h1>
+                    <p>Informasi mahasiswa yang sedang login.</p>
+                </div>
+
+
+                <div class="profile-card">
+
+                    <div class="big-avatar">
+                        GS
+                    </div>
+
+                    <div class="profile-data">
+
+                        <h2>{{ student_name }}</h2>
+
+                        <div class="data-row">
+                            <span>Nama</span>
+                            <strong>{{ student_name }}</strong>
+                        </div>
+
+                        <div class="data-row">
+                            <span>NIM</span>
+                            <strong>15240328</strong>
+                        </div>
+
+                        <div class="data-row">
+                            <span>Program Studi</span>
+                            <strong>Teknik Informatika</strong>
+                        </div>
+
+                        <div class="data-row">
+                            <span>Semester</span>
+                            <strong>5</strong>
+                        </div>
+
+                        <div class="data-row">
+                            <span>Status</span>
+                            <strong class="status-active">
+                                AKTIF
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= PROFIL ================= -->
+
+            <div id="page-profil" class="dashboard-section page-section" style="display:none;">
+
+                <div class="page-title">
+
+                    <h1>Profil Saya</h1>
+
+                    <p>
+                        Informasi akun mahasiswa.
+                    </p>
+
+                </div>
+
+
+                <div class="profile-card">
+
+                    <div class="big-avatar">
+                        GS
+                    </div>
+
+                    <div class="profile-data">
+
+                        <h2>{{ student_name }}</h2>
+
+                        <div class="data-row">
+                            <span>Nama Lengkap</span>
+                            <strong>{{ student_name }}</strong>
+                        </div>
+
+                        <div class="data-row">
+                            <span>NIM</span>
+                            <strong>15240328</strong>
+                        </div>
+
+                        <div class="data-row">
+                            <span>Program Studi</span>
+                            <strong>Teknik Informatika</strong>
+                        </div>
+
+                        <div class="data-row">
+                            <span>Email</span>
+                            <strong>mahasiswa@abcd.ac.id</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= UJIAN ================= -->
+
+            <div id="page-ujian" class="dashboard-section page-section" style="display:none;">
+
+                <div class="page-title">
+
+                    <h1>Ujian</h1>
+
+                    <p>
+                        Informasi jadwal ujian mahasiswa.
+                    </p>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <div class="info-card-header">
+                        <span class="exam-icon"><i class="bi bi-file-text"></i></span>
+
+                        <div>
+                            <h3>Ujian Tengah Semester</h3>
+                            <p>Semester 5</p>
+                        </div>
+                    </div>
+
+                    <div class="data-row">
+                        <span>Mata Kuliah</span>
+                        <strong>Machine Learning</strong>
+                    </div>
+
+                    <div class="data-row">
+                        <span>Tanggal</span>
+                        <strong>20 Oktober 2026</strong>
+                    </div>
+
+                    <div class="data-row">
+                        <span>Waktu</span>
+                        <strong>10:00 - 12:00</strong>
+                    </div>
+
+                    <div class="data-row">
+                        <span>Ruangan</span>
+                        <strong>201-A1</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= JADWAL ================= -->
+
+            <div id="page-jadwal-page" class="dashboard-section page-section" style="display:none;">
+
+                <div class="page-title">
+
+                    <h1>Jadwal Kuliah</h1>
+
+                    <p>
+                        Seluruh jadwal perkuliahan Anda.
+                    </p>
+
+                </div>
+
+
+                <div class="schedule-grid schedule-full" id="schedulePageContainer">
+
+                    <p>Memuat jadwal...</p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= PENGATURAN ================= -->
+
+            <div id="page-pengaturan" class="dashboard-section page-section" style="display:none;">
+
+                <div class="page-title">
+
+                    <h1>Pengaturan</h1>
+
+                    <p>
+                        Pengaturan akun dan aplikasi.
+                    </p>
+
+                </div>
+
+
+                <div class="settings-card">
+
+                    <div class="setting-item">
+
+                        <div>
+                            <strong>Notifikasi</strong>
+
+                            <span>
+                                Aktifkan notifikasi absensi.
+                            </span>
+                        </div>
+
+                        <input type="checkbox" checked>
+
+                    </div>
+
+
+                    <div class="setting-item">
+
+                        <div>
+                            <strong>Verifikasi Wajah</strong>
+
+                            <span>
+                                Gunakan Face Recognition untuk absensi.
+                            </span>
+                        </div>
+
+                        <input type="checkbox" checked>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+    <!-- =====================================================
+     MODAL ABSENSI
+===================================================== -->
+
+    <div id="attendanceModal" class="face-modal">
+
+        <div class="face-modal-content">
+
+            <div class="face-modal-header">
+
+                <h2>
+                    Verifikasi Absensi
+                </h2>
+
+                <button type="button" onclick="closeAttendance()">
+                    <i class="bi bi-x"></i>
+                </button>
+
+            </div>
+
+
+            <p class="face-instruction">
+                Posisikan wajah Anda di dalam kotak
+            </p>
+
+
+            <!-- CAMERA -->
+
+            <div class="camera-container">
+
+                <video id="attendanceCamera" autoplay playsinline></video>
+
+                <canvas id="attendanceCanvas"></canvas>
+
+
+                <!-- GUIDE -->
+
+                <div class="face-guide">
+
+                    <div class="guide-corner top-left"></div>
+
+                    <div class="guide-corner top-right"></div>
+
+                    <div class="guide-corner bottom-left"></div>
+
+                    <div class="guide-corner bottom-right"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div id="attendanceStatus" class="face-status">
+                Menyalakan kamera...
+            </div>
+
+
+            <!-- BUTTON -->
+
+            <div class="face-login-actions">
+
+                <button type="button" id="verifyAttendanceButton" class="face-verify-button"
+                    onclick="captureAttendance()">
+                    VERIFIKASI ABSENSI
+                </button>
+
+
+                <button type="button" class="face-cancel-button" onclick="closeAttendance()">
+                    Batal
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- JAVASCRIPT DASHBOARD -->
+    <script src="/static/script.js?v=3"></script>
+
+    <!-- RESPONSIVE SIDEBAR DRAWER (self-contained; no dependency on script.js) -->
+    <script>
+        (function () {
+
+            var sidebar = document.getElementById("sidebar");
+            var backdrop = document.getElementById("sidebarBackdrop");
+            var hamburger = document.getElementById("hamburgerBtn");
+            var closeButton = document.getElementById("sidebarCloseBtn");
+
+            if (!sidebar || !hamburger) {
+                return;
+            }
+
+            function openSidebar() {
+                sidebar.classList.add("open");
+                if (backdrop) {
+                    backdrop.classList.add("active");
+                }
+                document.body.classList.add("sidebar-open");
+                hamburger.setAttribute("aria-expanded", "true");
+                if (closeButton) {
+                    closeButton.focus({ preventScroll: true });
+                }
+            }
+
+            function closeSidebar(restoreFocus) {
+                sidebar.classList.remove("open");
+                if (backdrop) {
+                    backdrop.classList.remove("active");
+                }
+                document.body.classList.remove("sidebar-open");
+                hamburger.setAttribute("aria-expanded", "false");
+                if (restoreFocus) {
+                    hamburger.focus({ preventScroll: true });
+                }
+            }
+
+            hamburger.addEventListener("click", function () {
+                if (sidebar.classList.contains("open")) {
+                    closeSidebar(true);
+                } else {
+                    openSidebar();
+                }
+            });
+
+            if (closeButton) {
+                closeButton.addEventListener("click", function () {
+                    closeSidebar(true);
+                });
+            }
+
+            if (backdrop) {
+                backdrop.addEventListener("click", function () {
+                    closeSidebar(true);
+                });
+            }
+
+            sidebar.querySelectorAll("a.menu-item").forEach(function (item) {
+                item.addEventListener("click", function () {
+                    if (window.matchMedia("(max-width: 991.98px)").matches) {
+                        closeSidebar(false);
+                    }
+                });
+            });
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape" && sidebar.classList.contains("open")) {
+                    closeSidebar(true);
+                }
+            });
+
+            window.addEventListener("resize", function () {
+                if (!window.matchMedia("(max-width: 991.98px)").matches) {
+                    closeSidebar(false);
+                }
+            });
+
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.vscode/
+.git/
+
+.env
+.env.*
+!.env.example
+
+dataset_face_baru/
+dataset_mentah/
+dataset_split/
+dataset_pengujian/
+dataset_pemilah/
+dataset_face_augmented/
+hasil_metrik/
+
+*.csv
+*.log
+*.rar
+
+# Data biometrik mahasiswa
+embedding_baru/
+
+# SSL private files
+ssl/

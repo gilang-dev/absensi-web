@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: absensi-backend
+    runtime: docker
+    plan: starter
+    healthCheckPath: /docs
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        sync: false

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Universitas ABCD</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/bootstrap-icons/font/bootstrap-icons.min.css">
+</head>
+
+<body class="login-page">
+
+    <div class="login-background">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+    </div>
+
+    <div class="login-card">
+
+        <div class="university-logo">
+            ABCD
+        </div>
+
+        <h1>UNIVERSITAS ABCD</h1>
+
+        <p class="login-subtitle">
+            Sistem Informasi Akademik
+        </p>
+
+        <form onsubmit="login(event)">
+
+            <div class="input-group">
+
+                <label>NIM / USERNAME</label>
+
+                <input type="text" id="username" placeholder="Masukkan NIM" required>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>PASSWORD</label>
+
+                <div class="password-wrapper">
+
+                    <input type="password" id="password" placeholder="Masukkan password" required>
+
+                    <button type="button" onclick="togglePassword()" class="eye-button">
+                        <i class="bi bi-eye-fill"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="forgot">
+                <a href="#">
+                    Lupa Password?
+                </a>
+            </div>
+
+            <button type="submit" class="login-button">
+                MASUK
+            </button>
+
+            <button type="button" class="face-login-button" onclick="openFaceLogin()">
+                <span><i class="bi bi-camera-fill"></i></span> Login dengan Wajah
+            </button>
+
+        </form>
+
+        <div class="login-footer">
+            © 2026 Universitas ABCD
+        </div>
+
+    </div>
+
+    <script src="/static/script.js?v=2"></script>
+
+    <!-- FACE LOGIN MODAL -->
+    <div id="faceLoginModal" class="face-modal">
+        <div class="face-modal-content">
+
+            <div class="face-modal-header">
+                <h2>Login dengan Wajah</h2>
+                <button type="button" onclick="closeFaceLogin()"><i class="bi bi-x"></i></button>
+            </div>
+
+            <p class="face-instruction">
+                Posisikan wajah Anda di dalam kotak
+            </p>
+
+            <div class="camera-container">
+
+                <video id="faceLoginCamera" autoplay playsinline></video>
+
+                <canvas id="faceCanvas"></canvas>
+
+                <div class="face-guide">
+                    <div class="guide-corner top-left"></div>
+                    <div class="guide-corner top-right"></div>
+                    <div class="guide-corner bottom-left"></div>
+                    <div class="guide-corner bottom-right"></div>
+                </div>
+
+            </div>
+
+            <div id="faceLoginStatus" class="face-status">
+                Menyalakan kamera...
+            </div>
+
+            <div class="face-login-actions">
+                
+                <button
+                    type="button"
+                    class="face-verify-button"
+                    id="verifyFaceButton">
+                    VERIFIKASI WAJAH
+                </button>
+                
+                <button type="button" class="face-cancel-button" onclick="closeFaceLogin()">
+                    Batal
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

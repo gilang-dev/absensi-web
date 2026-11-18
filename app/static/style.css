@@ -1,0 +1,2714 @@
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #e5e7eb;
+    background: #080b14;
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+.login-page {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            #172554,
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            #312e81,
+            transparent 35%
+        ),
+        #070a12;
+}
+
+.login-background {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+}
+
+.glow {
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(80px);
+
+    opacity: .25;
+}
+
+.glow-1 {
+    width: 350px;
+    height: 350px;
+
+    top: -100px;
+    left: -100px;
+
+    background: #2563eb;
+}
+
+.glow-2 {
+    width: 400px;
+    height: 400px;
+
+    right: -100px;
+    bottom: -150px;
+
+    background: #7c3aed;
+}
+
+.login-card {
+    position: relative;
+
+    width: 420px;
+
+    padding: 42px;
+
+    border-radius: 20px;
+
+    background: rgba(17, 24, 39, .92);
+
+    border: 1px solid #273449;
+
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, .5);
+}
+
+.university-logo {
+    width: 65px;
+    height: 65px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color: white;
+
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.login-card h1 {
+    margin: 20px 0 5px;
+
+    text-align: center;
+
+    font-size: 24px;
+}
+
+.login-subtitle {
+    margin-bottom: 35px;
+
+    text-align: center;
+
+    color: #94a3b8;
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.input-group input {
+    width: 100%;
+
+    padding: 14px;
+
+    border: 1px solid #334155;
+    border-radius: 9px;
+
+    outline: none;
+
+    background: #0f172a;
+
+    color: white;
+}
+
+.input-group input:focus {
+    border-color: #6366f1;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 45px;
+}
+
+.eye-button {
+    position: absolute;
+
+    top: 5px;
+    right: 5px;
+
+    height: 38px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #94a3b8;
+
+    cursor: pointer;
+}
+
+.forgot {
+    margin: 10px 0 20px;
+
+    text-align: right;
+}
+
+.forgot a {
+    color: #818cf8;
+
+    font-size: 13px;
+
+    text-decoration: none;
+}
+
+.login-button {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.login-footer {
+    margin-top: 30px;
+
+    text-align: center;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.face-login-button {
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 13px;
+
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 10px;
+
+    background: rgba(255,255,255,.05);
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.face-login-button:hover {
+    background: rgba(255,255,255,.1);
+
+    border-color: rgba(255,255,255,.3);
+}
+
+
+/* =========================================================
+   DASHBOARD LAYOUT
+========================================================= */
+
+.dashboard-page {
+    min-height: 100vh;
+
+    background: #080b14;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 220px;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 18px 12px;
+
+    background: #0b0f19;
+
+    border-right: 1px solid #1e293b;
+
+    z-index: 1000;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 6px 8px 18px;
+
+    margin-bottom: 18px;
+
+    border-bottom: 1px solid #1e293b;
+}
+
+.brand-logo {
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color: white;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.brand strong,
+.brand span {
+    display: block;
+}
+
+.brand strong {
+    color: #f8fafc;
+
+    font-size: 10px;
+
+    letter-spacing: .6px;
+}
+
+.brand span {
+    margin-top: 2px;
+
+    color: #818cf8;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.menu-title {
+    padding: 0 10px;
+
+    margin-bottom: 7px;
+
+    color: #475569;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.menu-item {
+    position: relative;
+
+    width: 100%;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 0 11px;
+
+    border-radius: 8px;
+
+    color: #94a3b8;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: .18s;
+}
+
+.menu-item span {
+    width: 20px;
+    min-width: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #64748b;
+
+    font-size: 15px;
+}
+
+.menu-item:hover {
+    background: #111827;
+
+    color: #e2e8f0;
+}
+
+.menu-item:hover span {
+    color: #a5b4fc;
+}
+
+.menu-item.active {
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #4338ca
+    );
+
+    color: white;
+
+    box-shadow:
+        0 5px 14px rgba(37,99,235,.18);
+}
+
+.menu-item.active span {
+    color: white;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+
+    padding-top: 14px;
+
+    border-top: 1px solid #1e293b;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.menu-item.logout:hover {
+    background: rgba(239,68,68,.08);
+
+    color: #f87171;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.main-content {
+    margin-left: 220px;
+
+    width: calc(100% - 220px);
+
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar {
+    height: 70px;
+
+    padding: 0 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #0b0f19;
+
+    border-bottom: 1px solid #1e293b;
+}
+
+.breadcrumb {
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+.breadcrumb-current {
+    color: #e2e8f0;
+
+    font-size: 13px;
+}
+
+.breadcrumb-separator {
+    margin: 0 8px;
+
+    color: #475569;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #22c55e,
+        #2563eb
+    );
+
+    color: white;
+
+    font-weight: bold;
+}
+
+.profile-info strong,
+.profile-info span {
+    display: block;
+}
+
+.profile-info strong {
+    font-size: 13px;
+}
+
+.profile-info span {
+    margin-top: 3px;
+
+    color: #64748b;
+
+    font-size: 11px;
+}
+
+.arrow {
+    color: #64748b;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content {
+    padding: 30px;
+}
+
+.welcome h1 {
+    margin: 0;
+
+    font-size: 26px;
+}
+
+.welcome p {
+    color: #64748b;
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-top: 25px;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 20px;
+
+    background: #0d111c;
+
+    border: 1px solid #1e293b;
+
+    border-radius: 12px;
+}
+
+.stat-icon {
+    width: 45px;
+    height: 45px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    font-size: 20px;
+}
+
+.stat-icon.blue {
+    background: #172554;
+}
+
+.stat-icon.green {
+    background: #052e16;
+}
+
+.stat-icon.purple {
+    background: #2e1065;
+}
+
+.stat-icon.orange {
+    background: #431407;
+}
+
+.stat-card span,
+.stat-card strong {
+    display: block;
+}
+
+.stat-card span {
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.stat-card strong {
+    margin-top: 5px;
+
+    font-size: 22px;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 35px;
+}
+
+.section-header h2 {
+    margin: 0;
+}
+
+.section-header p {
+    margin-top: 5px;
+
+    color: #64748b;
+}
+
+.secondary-button {
+    padding: 10px 15px;
+
+    border: 1px solid #334155;
+    border-radius: 7px;
+
+    background: #111827;
+
+    color: #cbd5e1;
+
+    cursor: pointer;
+}
+
+.secondary-button:hover {
+    background: #1e293b;
+}
+
+
+/* =========================================================
+   SCHEDULE
+========================================================= */
+
+.schedule-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+
+    margin-top: 15px;
+}
+
+.course-card {
+    overflow: hidden;
+
+    background: #0d111c;
+
+    border: 1px solid #1e293b;
+
+    border-radius: 12px;
+
+    transition:
+        transform .2s,
+        border-color .2s;
+}
+
+.course-card:hover {
+    transform: translateY(-2px);
+
+    border-color: #334155;
+}
+
+.course-header {
+    padding: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #172554,
+        #312e81
+    );
+}
+
+.course-header h3 {
+    margin: 0 0 10px;
+
+    font-size: 16px;
+}
+
+.course-header span {
+    color: #cbd5e1;
+
+    font-size: 12px;
+}
+
+.course-body {
+    padding: 18px;
+}
+
+.course-body p {
+    margin: 10px 0;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+}
+
+.course-body strong {
+    color: #e2e8f0;
+}
+
+
+/* =========================================================
+   ATTENDANCE STATUS
+========================================================= */
+
+.attendance-button {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 11px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.attendance-button:hover {
+    background: #1d4ed8;
+}
+
+.attendance-late {
+    background: #d97706;
+}
+
+.attendance-late:hover {
+    background: #b45309;
+}
+
+.attendance-success {
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 11px;
+
+    border: 1px solid rgba(34,197,94,.25);
+    border-radius: 7px;
+
+    background: rgba(34,197,94,.10);
+
+    color: #4ade80;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    text-align: center;
+}
+
+.attendance-success small {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #86efac;
+
+    font-size: 11px;
+
+    font-weight: normal;
+}
+
+.attendance-disabled {
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 11px;
+
+    border: 1px solid #263247;
+    border-radius: 7px;
+
+    background: #111827;
+
+    color: #64748b;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    text-align: center;
+}
+
+.attendance-closed {
+    color: #64748b;
+}
+
+
+/* =========================================================
+   INTERNAL PAGES
+========================================================= */
+
+.dashboard-section {
+    width: 100%;
+}
+
+.page-section {
+    animation: pageFade .2s ease;
+}
+
+@keyframes pageFade {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+
+.page-title {
+    margin-bottom: 25px;
+}
+
+.page-title h1 {
+    margin: 0;
+
+    color: #f8fafc;
+
+    font-size: 26px;
+}
+
+.page-title p {
+    margin-top: 8px;
+
+    color: #64748b;
+}
+
+
+/* =========================================================
+   PROFILE PAGE
+========================================================= */
+
+.profile-card {
+    max-width: 800px;
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 30px;
+
+    padding: 30px;
+
+    background: #0d111c;
+
+    border: 1px solid #1e293b;
+
+    border-radius: 14px;
+}
+
+.big-avatar {
+    width: 100px;
+    height: 100px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color: white;
+
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.profile-data {
+    flex: 1;
+}
+
+.profile-data h2 {
+    margin: 0 0 20px;
+
+    color: #f8fafc;
+}
+
+.data-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid #1e293b;
+}
+
+.data-row:last-child {
+    border-bottom: none;
+}
+
+.data-row span {
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+.data-row strong {
+    color: #e2e8f0;
+
+    font-size: 13px;
+}
+
+.status-active {
+    color: #4ade80 !important;
+}
+
+
+/* =========================================================
+   EXAM
+========================================================= */
+
+.info-card {
+    max-width: 800px;
+
+    padding: 25px;
+
+    background: #0d111c;
+
+    border: 1px solid #1e293b;
+
+    border-radius: 14px;
+}
+
+.info-card-header {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #1e293b;
+}
+
+.info-card-header h3 {
+    margin: 0;
+
+    color: #f8fafc;
+}
+
+.info-card-header p {
+    margin: 5px 0 0;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.exam-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #172554;
+
+    font-size: 22px;
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+.settings-card {
+    max-width: 800px;
+
+    overflow: hidden;
+
+    background: #0d111c;
+
+    border: 1px solid #1e293b;
+
+    border-radius: 14px;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px 25px;
+
+    border-bottom: 1px solid #1e293b;
+}
+
+.setting-item:last-child {
+    border-bottom: none;
+}
+
+.setting-item strong,
+.setting-item span {
+    display: block;
+}
+
+.setting-item strong {
+    color: #e2e8f0;
+
+    font-size: 14px;
+}
+
+.setting-item span {
+    margin-top: 5px;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.setting-item input {
+    width: 18px;
+    height: 18px;
+
+    accent-color: #2563eb;
+
+    cursor: pointer;
+}
+
+.schedule-full {
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+}
+
+
+/* =========================================================
+   FACE LOGIN MODAL
+========================================================= */
+
+.face-modal {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0,0,0,.82);
+
+    backdrop-filter: blur(8px);
+}
+
+.face-modal.active {
+    display: flex;
+}
+
+.face-modal-content {
+    width: 430px;
+
+    max-width: 95%;
+
+    padding: 24px;
+
+    background: #11151c;
+
+    border: 1px solid rgba(255,255,255,.1);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.5);
+}
+
+.face-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 5px;
+}
+
+.face-modal-header h2 {
+    margin: 0;
+
+    color: white;
+
+    font-size: 21px;
+}
+
+.face-modal-header button {
+    border: none;
+
+    background: transparent;
+
+    color: #aaa;
+
+    font-size: 28px;
+
+    cursor: pointer;
+}
+
+.face-modal-header button:hover {
+    color: white;
+}
+
+.face-instruction {
+    margin: 0 0 18px;
+
+    color: #999;
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+.camera-container {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 4 / 3;
+
+    overflow: hidden;
+
+    background: #050505;
+
+    border-radius: 14px;
+}
+
+.camera-container video {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+#faceLoginCamera {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transform: scaleX(-1);
+}
+
+#faceCanvas {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    object-fit: cover;
+
+    z-index: 2;
+}
+
+.face-guide {
+    position: absolute;
+
+    width: 55%;
+    height: 70%;
+
+    left: 22.5%;
+    top: 15%;
+
+    z-index: 3;
+
+    pointer-events: none;
+}
+
+.guide-corner {
+    position: absolute;
+
+    width: 35px;
+    height: 35px;
+
+    border-color: #00ff88;
+
+    border-style: solid;
+}
+
+.top-left {
+    top: 0;
+    left: 0;
+
+    border-width: 3px 0 0 3px;
+}
+
+.top-right {
+    top: 0;
+    right: 0;
+
+    border-width: 3px 3px 0 0;
+}
+
+.bottom-left {
+    bottom: 0;
+    left: 0;
+
+    border-width: 0 0 3px 3px;
+}
+
+.bottom-right {
+    right: 0;
+    bottom: 0;
+
+    border-width: 0 3px 3px 0;
+}
+
+.face-status {
+    margin-top: 15px;
+
+    padding: 11px;
+
+    border-radius: 8px;
+
+    background: rgba(255,255,255,.05);
+
+    color: #aaa;
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+.face-login-actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 12px;
+}
+
+.face-login-actions button {
+    flex: 1;
+
+    height: 42px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+/* Tombol VERIFIKASI ABSENSI */
+.face-verify-button {
+    width: 100%;
+    min-height: 56px;
+    padding: 15px 20px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.face-verify-button:hover {
+    opacity: 0.9;
+}
+
+.face-verify-button:active {
+    transform: scale(0.98);
+}
+
+.face-verify-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Tombol BATAL */
+.face-cancel-button {
+    width: 100%;
+    min-height: 52px;
+    padding: 13px 20px;
+
+    background: #252a33;
+    color: white;
+    font-size: 17px;
+    font-weight: 700;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.face-cancel-button:hover {
+    background: #343a46;
+}
+
+
+/* =========================================================
+   ATTENDANCE CAMERA
+========================================================= */
+
+.attendance-container {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 2fr)
+        minmax(280px, 1fr);
+
+    gap: 20px;
+
+    margin-top: 25px;
+}
+
+.attendance-card,
+.attendance-info {
+    padding: 22px;
+
+    background: #0d111c;
+
+    border: 1px solid #1e293b;
+
+    border-radius: 14px;
+}
+
+.attendance-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+.attendance-header h2 {
+    margin: 0;
+
+    font-size: 18px;
+}
+
+.verification-status {
+    color: #22c55e;
+
+    font-size: 12px;
+}
+
+.camera-box {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 4 / 3;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background: #020617;
+
+    border: 1px solid #263247;
+}
+
+#attendanceCamera {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transform: scaleX(-1);
+}
+
+#attendanceCanvas {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    object-fit: cover;
+
+    z-index: 2;
+}
+
+.camera-box .face-guide {
+    position: absolute;
+
+    width: 55%;
+    height: 70%;
+
+    left: 22.5%;
+    top: 15%;
+
+    border: 3px dashed #60a5fa;
+
+    border-radius: 25px;
+
+    pointer-events: none;
+
+    z-index: 3;
+}
+
+.camera-instruction {
+    position: absolute;
+
+    right: 0;
+    bottom: 18px;
+    left: 0;
+
+    color: white;
+
+    text-align: center;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    text-shadow:
+        0 2px 5px black;
+}
+
+.camera-status {
+    margin-top: 15px;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    background: #111827;
+
+    color: #94a3b8;
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+.camera-actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+.camera-actions button {
+    flex: 1;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.verify-button {
+    background: #16a34a;
+
+    color: white;
+}
+
+.verify-button:disabled {
+    background: #1e293b;
+
+    color: #64748b;
+
+    cursor: not-allowed;
+}
+
+.attendance-info h2 {
+    margin-top: 0;
+
+    margin-bottom: 25px;
+
+    font-size: 18px;
+}
+
+.info-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid #1e293b;
+}
+
+.info-row span {
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+.info-row strong {
+    text-align: right;
+
+    font-size: 13px;
+}
+
+.verification-note {
+    margin-top: 25px;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    background: #111827;
+
+    border: 1px solid #1e293b;
+}
+
+.verification-note strong {
+    color: #60a5fa;
+
+    font-size: 13px;
+}
+
+.verification-note p {
+    color: #94a3b8;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+/* =========================================================
+   FIX SCHEDULE CARD
+========================================================= */
+
+#scheduleContainer,
+#schedulePageContainer {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    width: 100%;
+}
+
+#scheduleContainer .course-card,
+#schedulePageContainer .course-card {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    background: #0d111c;
+
+    border: 1px solid #1e293b;
+
+    border-radius: 12px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .15);
+}
+
+#scheduleContainer .course-header,
+#schedulePageContainer .course-header {
+    padding: 18px 20px;
+
+    background: linear-gradient(
+        135deg,
+        #172554,
+        #312e81
+    );
+}
+
+#scheduleContainer .course-header h3,
+#schedulePageContainer .course-header h3 {
+    margin: 0 0 8px;
+
+    color: #ffffff;
+
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+#scheduleContainer .course-header span,
+#schedulePageContainer .course-header span {
+    color: #cbd5e1;
+
+    font-size: 12px;
+}
+
+#scheduleContainer .course-body,
+#schedulePageContainer .course-body {
+    padding: 18px 20px;
+}
+
+#scheduleContainer .course-body p,
+#schedulePageContainer .course-body p {
+    margin: 9px 0;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+#scheduleContainer .course-body strong,
+#schedulePageContainer .course-body strong {
+    color: #e2e8f0;
+}
+
+#scheduleContainer .attendance-button,
+#scheduleContainer .attendance-success,
+#scheduleContainer .attendance-disabled,
+#schedulePageContainer .attendance-button,
+#schedulePageContainer .attendance-success,
+#schedulePageContainer .attendance-disabled {
+    margin-top: 14px;
+}
+
+
+/* JADWAL PAGE */
+
+#page-jadwal-page .schedule-full {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+#page-jadwal-page .course-card {
+    min-height: 100%;
+}
+
+
+/* =========================================================
+   RESPONSIVE — SHARED COMPONENT BASE
+   Hamburger button, off-canvas backdrop & drawer close button.
+   These are hidden on desktop and enabled below the lg breakpoint.
+========================================================= */
+
+.dashboard-page {
+    overflow-x: hidden;
+    overflow-x: clip;
+}
+
+.main-content {
+    min-width: 0;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+}
+
+.profile {
+    flex-shrink: 0;
+}
+
+.avatar {
+    flex-shrink: 0;
+}
+
+.profile-info {
+    min-width: 0;
+}
+
+.profile-info strong {
+    max-width: 180px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Mobile hamburger */
+
+.hamburger-btn {
+    width: 40px;
+    height: 40px;
+
+    flex: 0 0 40px;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+
+    background: #111827;
+    color: #e2e8f0;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        border-color .2s ease,
+        color .2s ease;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+.hamburger-btn:hover {
+    background: #1e293b;
+
+    border-color: #334155;
+
+    color: #ffffff;
+}
+
+.hamburger-btn:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
+.hamburger-lines {
+    width: 18px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.hamburger-lines span {
+    display: block;
+
+    width: 100%;
+    height: 2px;
+
+    border-radius: 2px;
+
+    background: currentColor;
+}
+
+/* Sidebar backdrop / overlay */
+
+.sidebar-backdrop {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1050;
+
+    background: rgba(2, 6, 23, .65);
+
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity .3s ease,
+        visibility .3s ease;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sidebar-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Drawer close button */
+
+.sidebar-close {
+    display: none;
+
+    position: absolute;
+
+    top: 14px;
+    right: 12px;
+
+    width: 34px;
+    height: 34px;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+
+    background: #111827;
+    color: #94a3b8;
+
+    font-size: 22px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sidebar-close:hover {
+    background: #1e293b;
+
+    color: #ffffff;
+}
+
+.sidebar-close:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
+/* Fluid headings & text */
+
+h1 {
+    font-size: clamp(
+        1.375rem,
+        1.15rem + 1vw,
+        1.75rem
+    );
+}
+
+h2 {
+    font-size: clamp(
+        1.125rem,
+        1rem + .6vw,
+        1.375rem
+    );
+}
+
+h3 {
+    font-size: clamp(
+        1rem,
+        .95rem + .35vw,
+        1.125rem
+    );
+}
+
+.welcome h1,
+.page-title h1 {
+    font-size: clamp(
+        1.25rem,
+        1.05rem + 1vw,
+        1.625rem
+    );
+
+    line-height: 1.28;
+
+    overflow-wrap: anywhere;
+}
+
+.section-header h2 {
+    font-size: clamp(
+        1.05rem,
+        .98rem + .45vw,
+        1.3rem
+    );
+
+    line-height: 1.3;
+}
+
+.info-card-header h3,
+.profile-data h2 {
+    font-size: clamp(
+        1.05rem,
+        1rem + .4vw,
+        1.25rem
+    );
+
+    line-height: 1.35;
+}
+
+.welcome p,
+.page-title p {
+    margin: .5rem 0 0;
+
+    font-size: .9375rem;
+    line-height: 1.55;
+}
+
+/* Prevent long values from breaking their cards */
+
+.data-row strong,
+.info-row strong,
+.course-header h3,
+.course-body p {
+    overflow-wrap: break-word;
+}
+
+/* Modal base scaling — keeps content inside the viewport */
+
+.face-modal {
+    padding: 16px;
+}
+
+.face-modal-content {
+    max-width: 95%;
+
+    max-height: calc(100vh - 32px);
+    max-height: calc(100dvh - 32px);
+
+    overflow-y: auto;
+
+    overscroll-behavior: contain;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+.camera-container {
+    max-width: 100%;
+
+    margin-inline: auto;
+}
+
+
+/* =========================================================
+   Max-width 1399.98px (xl and down)
+========================================================= */
+
+@media (max-width: 1399.98px) {
+
+    .content {
+        padding: 28px;
+    }
+
+    .topbar {
+        padding: 0 28px;
+    }
+}
+
+
+/* =========================================================
+   Max-width 1199.98px (lg and down)
+========================================================= */
+
+@media (max-width: 1199.98px) {
+
+    .content {
+        padding: 24px;
+    }
+
+    .topbar {
+        padding: 0 24px;
+    }
+
+    .stats,
+    .schedule-grid,
+    #scheduleContainer,
+    #schedulePageContainer,
+    #page-jadwal-page .schedule-full {
+        gap: 16px;
+    }
+}
+
+
+/* =========================================================
+   Max-width 991.98px (Tablets — md and down)
+   Sidebar becomes an off-canvas drawer.
+========================================================= */
+
+@media (max-width: 991.98px) {
+
+    /* ---------- Off-canvas sidebar ---------- */
+
+    .sidebar {
+        width: min(84vw, 300px);
+
+        height: 100vh;
+        height: 100dvh;
+        max-height: 100dvh;
+
+        overflow-y: auto;
+
+        overscroll-behavior: contain;
+
+        transform: translateX(-100%);
+
+        transition: transform .3s ease;
+
+        box-shadow:
+            0 0 40px rgba(0, 0, 0, .45);
+
+        z-index: 1100;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .sidebar .brand {
+        padding-right: 34px;
+    }
+
+    .sidebar-close {
+        display: flex;
+    }
+
+    .sidebar-backdrop {
+        display: block;
+    }
+
+    body.sidebar-open {
+        overflow: hidden;
+    }
+
+    .hamburger-btn {
+        display: inline-flex;
+    }
+
+    /* ---------- Layout ---------- */
+
+    .main-content {
+        margin-left: 0;
+
+        width: 100%;
+    }
+
+    .topbar {
+        height: 64px;
+
+        padding: 0 20px;
+
+        position: sticky;
+        top: 0;
+
+        z-index: 900;
+    }
+
+    .content {
+        padding: 22px 20px 32px;
+    }
+
+    /* ---------- Stats: 2 columns ---------- */
+
+    .stats {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 16px;
+
+        margin-top: 22px;
+    }
+
+    /* ---------- Schedule: 2 columns ---------- */
+
+    .schedule-grid,
+    #scheduleContainer,
+    #schedulePageContainer,
+    #page-jadwal-page .schedule-full {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 16px;
+    }
+
+    /* ---------- Attendance page ---------- */
+
+    .attendance-container {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card {
+        gap: 24px;
+
+        padding: 24px;
+    }
+}
+
+
+/* =========================================================
+   Max-width 767.98px (Mobile landscape & small tablets — sm and down)
+========================================================= */
+
+@media (max-width: 767.98px) {
+
+    /* ---------- Topbar ---------- */
+
+    .topbar {
+        height: 60px;
+
+        padding: 0 16px;
+
+        gap: 12px;
+    }
+
+    .breadcrumb,
+    .breadcrumb-separator {
+        display: none;
+    }
+
+    .breadcrumb-current {
+        color: #e2e8f0;
+
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    /* ---------- Spacing ---------- */
+
+    .content {
+        padding: 18px 16px 28px;
+    }
+
+    .welcome h1,
+    .page-title h1 {
+        font-size: clamp(
+            1.15rem,
+            1.02rem + 1.4vw,
+            1.45rem
+        );
+    }
+
+    .welcome p,
+    .page-title p,
+    .section-header p {
+        font-size: .875rem;
+    }
+
+    .section-header {
+        flex-wrap: wrap;
+
+        gap: 12px;
+
+        margin-top: 26px;
+    }
+
+    .page-title {
+        margin-bottom: 20px;
+    }
+
+    /* ---------- Stats stay at 2 columns ---------- */
+
+    .stats {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 14px;
+    }
+
+    .stat-card {
+        gap: 12px;
+
+        padding: 16px;
+    }
+
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+
+        font-size: 18px;
+    }
+
+    .stat-card strong {
+        font-size: 20px;
+    }
+
+    /* ---------- Schedule: 1 column ---------- */
+
+    .schedule-grid,
+    #scheduleContainer,
+    #schedulePageContainer,
+    #page-jadwal-page .schedule-full {
+        grid-template-columns:
+            repeat(1, minmax(0, 1fr));
+
+        gap: 14px;
+    }
+
+    #scheduleContainer .course-header,
+    #schedulePageContainer .course-header,
+    .course-header {
+        padding: 15px 16px;
+    }
+
+    #scheduleContainer .course-body,
+    #schedulePageContainer .course-body,
+    .course-body {
+        padding: 15px 16px;
+    }
+
+    /* ---------- Profile: stack vertically ---------- */
+
+    .profile-card {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 18px;
+
+        padding: 20px;
+    }
+
+    .big-avatar {
+        width: 88px;
+        height: 88px;
+
+        align-self: center;
+
+        font-size: 26px;
+    }
+
+    .profile-data {
+        width: 100%;
+    }
+
+    .profile-data h2 {
+        margin-bottom: 14px;
+
+        text-align: center;
+    }
+
+    .data-row,
+    .info-row {
+        flex-wrap: wrap;
+
+        row-gap: 4px;
+
+        gap: 12px;
+    }
+
+    /* ---------- Info & settings cards ---------- */
+
+    .info-card,
+    .settings-card,
+    .profile-card {
+        max-width: 100%;
+    }
+
+    .info-card {
+        padding: 20px;
+    }
+
+    .setting-item {
+        gap: 14px;
+
+        padding: 16px 18px;
+    }
+
+    /* ---------- Modal ---------- */
+
+    .face-instruction {
+        margin-bottom: 12px;
+    }
+
+    .guide-corner {
+        width: 26px;
+        height: 26px;
+    }
+
+    /* ---------- Login ---------- */
+
+    .login-card {
+        padding: 32px 26px;
+    }
+}
+
+
+/* =========================================================
+   Max-width 575.98px (Mobile portrait — xs)
+========================================================= */
+
+@media (max-width: 600px) {
+
+    /* ---------- Topbar: only hamburger + avatar ---------- */
+
+    .topbar {
+        height: 56px;
+
+        padding: 0 12px;
+
+        gap: 10px;
+    }
+
+    .hamburger-btn {
+        width: 36px;
+        height: 36px;
+
+        flex-basis: 36px;
+    }
+
+    .breadcrumb,
+    .breadcrumb-separator,
+    .breadcrumb-current,
+    .profile-info,
+    .arrow {
+        display: none;
+    }
+
+    .avatar {
+        width: 34px;
+        height: 34px;
+
+        font-size: 12px;
+    }
+
+    /* ---------- Content spacing ---------- */
+
+    .content {
+        padding: 14px 12px 24px;
+    }
+
+    .welcome {
+        padding-bottom: 2px;
+    }
+
+    .welcome h1,
+    .page-title h1 {
+        font-size: clamp(
+            1.1rem,
+            1rem + 1.2vw,
+            1.3rem
+        );
+    }
+
+    .welcome p,
+    .page-title p,
+    .section-header p {
+        font-size: .8125rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 10px;
+
+        margin-top: 22px;
+    }
+
+    .section-header .secondary-button {
+        width: 100%;
+
+        padding: 11px 15px;
+    }
+
+    /* ---------- Stats: 1 column ---------- */
+
+    .stats {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+
+        margin-top: 18px;
+    }
+
+    .stat-card {
+        padding: 14px;
+    }
+
+    .stat-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    /* ---------- Schedule: 1 column ---------- */
+
+    .schedule-grid,
+    #scheduleContainer,
+    #schedulePageContainer,
+    #page-jadwal-page .schedule-full {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+    /* ---------- Cards ---------- */
+
+    .profile-card,
+    .info-card {
+        padding: 16px;
+
+        border-radius: 12px;
+    }
+
+    .settings-card {
+        border-radius: 12px;
+    }
+
+    .setting-item {
+        padding: 14px;
+    }
+
+    .big-avatar {
+        width: 80px;
+        height: 80px;
+
+        font-size: 24px;
+    }
+
+    .profile-data h2 {
+        text-align: left;
+    }
+
+    .data-row,
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        gap: 4px;
+
+        padding: 11px 0;
+    }
+
+    .data-row strong,
+    .info-row strong {
+        text-align: left;
+
+        overflow-wrap: anywhere;
+    }
+
+    .info-card-header {
+        gap: 12px;
+    }
+
+    .info-card-header h3 {
+        font-size: 1rem;
+    }
+
+    .exam-icon {
+        width: 42px;
+        height: 42px;
+
+        font-size: 19px;
+    }
+
+    /* ---------- Attendance page ---------- */
+
+    .attendance-card,
+    .attendance-info {
+        padding: 16px;
+    }
+
+    /* ---------- Modal & camera ---------- */
+
+    .face-modal {
+        padding: 8px;
+    }
+
+    .face-modal-content {
+        max-width: 95%;
+
+        max-height: calc(100vh - 16px);
+        max-height: calc(100dvh - 16px);
+
+        padding: 16px;
+
+        border-radius: 14px;
+    }
+
+    .face-modal-header h2 {
+        font-size: 18px;
+    }
+
+    .face-instruction {
+        font-size: 12px;
+    }
+
+    .camera-container {
+        border-radius: 10px;
+    }
+
+    .face-status {
+        margin-top: 12px;
+
+        padding: 9px;
+
+        font-size: 12px;
+    }
+
+    .face-login-actions {
+        gap: 10px;
+        margin-top: 18px;
+    }
+
+    .face-login-actions button {
+        width: 100%;
+        height: 44px;
+    }
+
+    .face-verify-button {
+        min-height: 58px;
+        font-size: 18px;
+    }
+    
+    .face-cancel-button {
+        min-height: 52px;
+        font-size: 17px;
+    }
+
+    .guide-corner {
+        width: 22px;
+        height: 22px;
+    }
+
+    /* ---------- Login ---------- */
+
+    .login-page {
+        padding: 24px 14px;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 420px;
+
+        padding: 28px 22px;
+
+        border-radius: 16px;
+    }
+}
+
+
+/* =========================================================
+   Short viewports (landscape phones & small laptops)
+   Keeps the 4:3 camera inside the screen without overflow.
+========================================================= */
+
+@media (max-height: 700px) {
+
+    .face-modal-content {
+        max-height: calc(100vh - 16px);
+        max-height: calc(100dvh - 16px);
+
+        padding: 16px;
+    }
+
+    .face-instruction {
+        display: none;
+    }
+
+    .camera-container {
+        width: min(
+            100%,
+            calc((100dvh - 250px) * 4 / 3)
+        );
+    }
+}
+
+
+/* =========================================================
+   Min-width 1400px (xxl — large screens / ultra-wide)
+========================================================= */
+
+@media (min-width: 1400px) {
+
+    .content {
+        padding: 34px 40px;
+    }
+
+    .topbar {
+        padding: 0 40px;
+    }
+
+    .stats,
+    .schedule-grid,
+    #scheduleContainer,
+    #schedulePageContainer,
+    #page-jadwal-page .schedule-full {
+        gap: 22px;
+    }
+}
+
+
+/* =========================================================
+   Reduced motion
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .sidebar,
+    .sidebar-backdrop,
+    .hamburger-btn,
+    .sidebar-close,
+    .menu-item,
+    .course-card,
+    .login-button,
+    .face-login-button {
+        transition: none !important;
+    }
+
+    .page-section {
+        animation: none;
+    }
+}

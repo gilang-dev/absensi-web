@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Absensi - Universitas ABCD</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/bootstrap-icons/font/bootstrap-icons.min.css">
+</head>
+
+<body class="dashboard-page">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                ABCD
+            </div>
+
+            <div>
+                <strong>UNIVERSITAS</strong>
+                <span>ABCD</span>
+            </div>
+
+        </div>
+
+        <div class="menu-title">
+            MENU
+        </div>
+
+        <nav>
+
+            <a href="/dashboard" class="menu-item">
+                <span><i class="bi bi-house-door-fill"></i></span>
+                Dashboard
+            </a>
+
+            <a class="menu-item">
+                <span><i class="bi bi-people-fill"></i></span>
+                Mahasiswa
+            </a>
+
+            <a class="menu-item">
+                <span><i class="bi bi-person-circle"></i></span>
+                Profil
+            </a>
+
+            <a class="menu-item">
+                <span><i class="bi bi-journal-text"></i></span>
+                Ujian
+            </a>
+
+            <a class="menu-item">
+                <span><i class="bi bi-calendar3"></i></span>
+                Jadwal
+            </a>
+
+            <a href="/attendance" class="menu-item active">
+                <span><i class="bi bi-camera-fill"></i></span>
+                Absensi
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="/" class="menu-item logout">
+                <span><i class="bi bi-box-arrow-right"></i></span>
+                Keluar
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+
+                <span class="breadcrumb">
+                    Universitas ABCD
+                </span>
+
+                <span class="breadcrumb-separator">
+                    /
+                </span>
+
+                <span class="breadcrumb-current">
+                    Absensi
+                </span>
+
+            </div>
+
+            <div class="profile">
+
+                <div class="avatar">
+                    GS
+                </div>
+
+                <div class="profile-info">
+
+                    <strong>
+                        Gilang Saputra
+                    </strong>
+
+                    <span>
+                        Mahasiswa
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+
+        <section class="content">
+
+            <div class="welcome">
+
+                <h1>
+                    Absensi Perkuliahan
+                </h1>
+
+                <p>
+                    Verifikasi identitas menggunakan
+                    pengenalan wajah.
+                </p>
+
+            </div>
+
+
+            <div class="attendance-container">
+
+                <div class="attendance-card">
+
+                    <div class="attendance-header">
+
+                        <h2>
+                            Verifikasi Wajah
+                        </h2>
+
+                        <span class="verification-status">
+                            <i class="bi bi-record-circle-fill"></i> Kamera siap
+                        </span>
+
+                    </div>
+
+
+                    <!-- CAMERA -->
+
+                    <div class="camera-box">
+
+                        <video id="attendanceCamera" autoplay playsinline></video>
+
+                        <div class="face-guide"></div>
+
+                        <div class="camera-instruction">
+                            TENGAHKAN WAJAH ANDA
+                        </div>
+
+                    </div>
+
+
+                    <div id="cameraStatus" class="camera-status">
+                        Klik tombol untuk mengaktifkan
+                        kamera.
+                    </div>
+
+
+                    <div class="camera-actions">
+
+                        <button id="startAttendanceCamera" class="attendance-button">
+                            <i class="bi bi-camera-fill"></i> AKTIFKAN KAMERA
+                        </button>
+
+                        <button id="verifyButton" class="verify-button" disabled>
+                            <i class="bi bi-check-circle-fill"></i> VERIFIKASI WAJAH
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- INFORMATION -->
+
+                <div class="attendance-info">
+
+                    <h2>
+                        Informasi Absensi
+                    </h2>
+
+                    <div class="info-row">
+
+                        <span>
+                            Mata Kuliah
+                        </span>
+
+                        <strong>
+                            Kecerdasan Buatan
+                        </strong>
+
+                    </div>
+
+                    <div class="info-row">
+
+                        <span>
+                            Hari
+                        </span>
+
+                        <strong>
+                            Selasa
+                        </strong>
+
+                    </div>
+
+                    <div class="info-row">
+
+                        <span>
+                            Waktu
+                        </span>
+
+                        <strong>
+                            07:30 - 10:00
+                        </strong>
+
+                    </div>
+
+                    <div class="info-row">
+
+                        <span>
+                            Ruang
+                        </span>
+
+                        <strong>
+                            201-A1
+                        </strong>
+
+                    </div>
+
+
+                    <div class="verification-note">
+
+                        <strong>
+                            <i class="bi bi-info-circle-fill"></i> Cara Absensi
+                        </strong>
+
+                        <p>
+                            Pastikan wajah berada di
+                            dalam kotak panduan dan
+                            terlihat dengan jelas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="/static/script.js?v=2"></script>
+
+</body>
+
+</html>

@@ -19,6 +19,7 @@ dataset_pemilah/
 dataset_face_augmented/
 hasil_metrik/
 
+*.sql
 *.csv
 *.log
 *.rar

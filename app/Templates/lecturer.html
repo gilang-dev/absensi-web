@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Dosen - Universitas ABCD</title>
+<link rel="stylesheet" href="/static/style.css?v=4">
+<link rel="stylesheet" href="/static/bootstrap-icons/font/bootstrap-icons.min.css">
+<style>
+.lec-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.lec-btn{border:none;border-radius:12px;padding:10px 16px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#2563eb,#7c3aed);transition:opacity .2s}
+.lec-btn:hover{opacity:.9}
+.lec-btn:disabled{opacity:.55;cursor:not-allowed}
+.lec-btn.ghost{background:rgba(255,255,255,.08)}
+.lec-btn.danger{background:#dc2626}
+.course-body .lec-actions .lec-btn{flex:1 1 calc(50% - 4px);padding:13px 14px;font-size:15px;text-align:center;border-radius:12px}
+.course-body .lec-actions .lec-btn.wide{flex:1 1 100%}
+.lec-btn.ok{background:#16a34a}
+.lec-badge{display:inline-block;margin-bottom:10px;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.lec-badge.today{background:rgba(37,99,235,.2);color:#93b4ff}
+.lec-badge.cancel{background:rgba(239,68,68,.18);color:#fca5a5}
+.lec-reason{margin:10px 0 0;padding:8px 10px;background:rgba(239,68,68,.08);border-radius:8px;color:#fca5a5;font-size:13px}
+.lec-table-card{background:#11151c;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:8px 16px;overflow-x:auto;margin-bottom:28px}
+.lec-table{width:100%;border-collapse:collapse;font-size:14px;color:#e5e7eb}
+.lec-table th,.lec-table td{padding:12px;text-align:left;border-bottom:1px solid rgba(255,255,255,.07)}
+.lec-table th{color:#94a3b8;font-size:12px;text-transform:uppercase}
+.lec-pill{padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.lec-pill.good{background:rgba(34,197,94,.18);color:#86efac}
+.lec-pill.mid{background:rgba(245,158,11,.18);color:#fcd34d}
+.lec-pill.bad{background:rgba(239,68,68,.18);color:#fca5a5}
+.lec-empty{color:#94a3b8;padding:16px 0}
+.lec-modal-box{width:440px;max-width:95%;padding:24px;background:#11151c;border:1px solid rgba(255,255,255,.1);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lec-modal-box h2{margin:0 0 6px;color:#fff;font-size:21px}
+.lec-modal-box .meta{margin:0 0 8px;color:#999;font-size:13px}
+.lec-modal-box label{display:block;margin:12px 0 6px;font-size:12px;font-weight:700;color:#9aa4b5}
+.lec-modal-box input,.lec-modal-box textarea{width:100%;padding:11px 12px;background:#0b111c;border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;font-size:14px;font-family:inherit}
+.lec-modal-box textarea{min-height:80px;resize:vertical}
+#lecToast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:12px 20px;background:#1c2330;border:1px solid rgba(255,255,255,.12);border-radius:12px;color:#fff;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:10000}
+#lecToast.show{opacity:1}
+.lec-select{padding:10px 12px;background:#0b111c;border:1px solid rgba(255,255,255,.12);border-radius:10px;color:#fff;font-size:14px;min-width:200px}
+</style>
+</head>
+<body class="dashboard-page">
+
+<aside class="sidebar" id="sidebar" aria-label="Navigasi utama">
+    <button type="button" class="sidebar-close" id="sidebarCloseBtn" aria-label="Tutup menu navigasi"><i class="bi bi-x"></i></button>
+    <div class="brand">
+        <div class="brand-logo">ABCD</div>
+        <div><strong>UNIVERSITAS</strong><span>ABCD</span></div>
+    </div>
+    <div class="menu-title">MENU</div>
+    <nav>
+        <a class="menu-item active" href="javascript:void(0)" data-page="kelas"><span><i class="bi bi-houses"></i></span>Dashboard</a>
+        <a class="menu-item" href="javascript:void(0)" data-page="rekap"><span><i class="bi bi-clipboard-data-fill"></i></span>Rekap Absensi</a>
+        
+        <a class="menu-item" href="javascript:void(0)" data-page="batal"><span><i class="bi bi-calendar-x-fill"></i></span>Pembatalan</a>
+    </nav>
+    <div class="sidebar-bottom">
+        <a class="menu-item logout" href="javascript:void(0)" id="logoutBtn"><span><i class="bi bi-box-arrow-right"></i></span>Keluar</a>
+    </div>
+</aside>
+
+<div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+
+<main class="main-content">
+    <header class="topbar">
+        <div class="topbar-left">
+            <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-label="Buka menu navigasi" aria-controls="sidebar" aria-expanded="false">
+                <span class="hamburger-lines" aria-hidden="true"><span></span><span></span><span></span></span>
+            </button>
+            <span class="breadcrumb">Universitas ABCD</span>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current" id="crumb">Dashboard Dosen</span>
+        </div>
+        <div class="profile">
+            <div class="avatar" id="lecAvatar">DS</div>
+            <div class="profile-info">
+                <strong id="lecName">{{ lecturer_name }}</strong>
+                <span>Dosen</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="content">
+
+        <!-- ===== KELAS ===== -->
+        <div id="page-kelas" class="dashboard-section">
+            <div class="welcome">
+                <div>
+                    <h1>Selamat Datang, <span id="welcomeName">{{ lecturer_name }}</span> <i class="bi bi-hand-wave-fill"></i></h1>
+                    <p id="todayLabel">Kelola kelas dan rekap kehadiran mahasiswa Anda.</p>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card"><div class="stat-icon blue"><i class="bi bi-journal-bookmark-fill"></i></div><div><span>Total Kelas</span><strong id="stTotal">0</strong></div></div>
+                <div class="stat-card"><div class="stat-icon orange"><i class="bi bi-calendar-event-fill"></i></div><div><span>Kelas Hari Ini</span><strong id="stToday">0</strong></div></div>
+                <div class="stat-card"><div class="stat-icon purple"><i class="bi bi-calendar-x-fill"></i></div><div><span>Dibatalkan Hari Ini</span><strong id="stCancel">0</strong></div></div>
+                <div class="stat-card"><div class="stat-icon green"><i class="bi bi-check-circle-fill"></i></div><div><span>Hadir Hari Ini</span><strong id="stPresent">0</strong></div></div>
+            </div>
+
+            <div class="section-header">
+                <div><h2>Kelas yang Diampu</h2><p>Jadwal perkuliahan Anda</p></div>
+            </div>
+            <div class="schedule-grid" id="classGrid"><p>Memuat kelas...</p></div>
+        </div>
+
+        <!-- ===== KEHADIRAN ===== -->
+        <div id="page-hadir" class="dashboard-section page-section" style="display:none;">
+            <div class="page-title">
+                <h1 id="hadirTitle">Kehadiran</h1>
+                <p id="hadirInfo">Pilih kelas lalu tekan "Kehadiran".</p>
+            </div>
+            <div class="lec-actions" style="margin:0 0 16px">
+                <select id="hadirDate" class="lec-select"></select>
+                <button class="lec-btn ghost" id="hadirRefresh" type="button">Muat Ulang</button>
+            </div>
+            <div class="lec-table-card">
+                <table class="lec-table">
+                    <thead><tr><th>Nama</th><th>NIM</th><th>Status</th><th>Jam</th></tr></thead>
+                    <tbody id="hadirBody"><tr><td colspan="4" class="lec-empty">Belum ada kelas dipilih.</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===== REKAP ===== -->
+        <div id="page-rekap" class="dashboard-section page-section" style="display:none;">
+            <div class="page-title">
+                <h1 id="recapTitle">Rekap Absensi</h1>
+                <p id="recapInfo">Pilih kelas untuk melihat rekap absensi.</p><select id="recapClass" class="lec-select" style="margin-top:12px"></select>
+                <div class="lec-actions"><button class="lec-btn ghost" id="recapBack" type="button">Kembali</button><button class="lec-btn ok" id="recapExport" type="button" disabled>Export CSV</button></div>
+            </div>
+            <div class="lec-table-card">
+                <table class="lec-table">
+                    <thead><tr><th>Nama</th><th>NIM</th><th>Hadir</th><th>Terlambat</th><th>Alpha</th><th>Persen</th></tr></thead>
+                    <tbody id="recapBody"><tr><td colspan="6" class="lec-empty">Belum ada rekap dipilih.</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ===== PEMBATALAN ===== -->
+        <div id="page-batal" class="dashboard-section page-section" style="display:none;">
+            <div class="page-title">
+                <h1>Pembatalan Kelas</h1>
+                <p>Daftar kelas yang Anda tandai tidak masuk.</p>
+            </div>
+            <div class="lec-table-card" id="upcomingBox"><p class="lec-empty">Memuat...</p></div>
+        </div>
+
+    </section>
+</main>
+
+<!-- MODAL TIDAK MASUK -->
+<div id="cancelModal" class="face-modal">
+    <div class="lec-modal-box">
+        <h2>Tidak Masuk</h2>
+        <p class="meta" id="cancelCourse"></p>
+        <label for="cancelDate">TANGGAL KELAS</label>
+        <input type="date" id="cancelDate">
+        <label for="cancelReason">ALASAN</label>
+        <textarea id="cancelReason" maxlength="500" placeholder="Contoh: Dosen sedang dinas luar kota"></textarea>
+        <div class="lec-actions" style="justify-content:flex-end">
+            <button class="lec-btn ghost" id="cancelClose" type="button">Batal</button>
+            <button class="lec-btn danger" id="cancelSubmit" type="button">Batalkan Kelas</button>
+        </div>
+    </div>
+</div>
+
+<div id="lecToast"></div>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var MAP = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  function esc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) { return MAP[c]; }); }
+
+  var state = { classes: [], today: '', target: null, recapId: null, hadirId: null };
+
+  function toast(text) {
+    var t = $('lecToast');
+    t.textContent = text;
+    t.classList.add('show');
+    setTimeout(function () { t.classList.remove('show'); }, 2600);
+  }
+
+  async function api(url, method, fields) {
+    var opts = { method: method || 'GET' };
+    if (fields) {
+      var fd = new FormData();
+      Object.keys(fields).forEach(function (k) { fd.append(k, fields[k]); });
+      opts.body = fd;
+    }
+    var res = await fetch(url, opts);
+    var data = await res.json();
+    if (data && data.success === false && /sesi dosen/i.test(data.message || '')) {
+      window.location.replace('/');
+    }
+    return data;
+  }
+
+  // ---------- navigasi ----------
+  var TITLES = { kelas: 'Dashboard Dosen', hadir: 'Kehadiran', rekap: 'Rekap Absensi', batal: 'Pembatalan' };
+
+  function showPage(page) {
+    ['kelas', 'hadir', 'rekap', 'batal'].forEach(function (p) {
+      $('page-' + p).style.display = p === page ? 'block' : 'none';
+    });
+    document.querySelectorAll('.menu-item[data-page]').forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('data-page') === (page === 'hadir' ? 'kelas' : page));
+    });
+    $('crumb').textContent = TITLES[page];
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('.menu-item[data-page]').forEach(function (a) {
+    a.addEventListener('click', function () { showPage(a.getAttribute('data-page')); });
+  });
+
+  // ---------- data ----------
+  function initials(name) {
+    var w = String(name || '').trim().split(/\s+/);
+    return (w.length >= 2 ? w[0][0] + w[w.length - 1][0] : w[0].substring(0, 2)).toUpperCase();
+  }
+
+  function nextDateForDay(day) {
+    var base = new Date(state.today + 'T00:00:00');
+    var diff = (day - ((base.getDay() + 6) % 7) + 7) % 7;
+    base.setDate(base.getDate() + diff);
+    return base.getFullYear() + '-' + String(base.getMonth() + 1).padStart(2, '0') + '-' + String(base.getDate()).padStart(2, '0');
+  }
+
+  function classCard(c) {
+    var badge = c.cancelled_today ? '<span class="lec-badge cancel">DIBATALKAN HARI INI</span>'
+              : (c.is_today ? '<span class="lec-badge today">HARI INI</span>' : '');
+    var reason = c.cancelled_today && c.cancel_reason ? '<div class="lec-reason">Alasan: ' + esc(c.cancel_reason) + '</div>' : '';
+    var checkinBtn = (c.is_today && !c.cancelled_today && !c.lecturer_status) ? '<button class="lec-btn wide" data-act="checkin" data-id="' + esc(c.id) + '">Mulai Kelas</button>' : '';
+    var act = c.cancelled_today
+      ? '<button class="lec-btn ok wide" data-act="uncancel" data-id="' + esc(c.id) + '">Aktifkan Kembali</button>'
+      : '<button class="lec-btn danger wide" data-act="cancel" data-id="' + esc(c.id) + '">Tidak Masuk</button>';
+
+    return '<div class="course-card"><div class="course-header"><h3>' + esc(c.course) + '</h3><span>Kode: ' + esc(c.code) + '</span></div>' +
+      '<div class="course-body">' + badge +
+      '<p><strong>Hari:</strong> ' + esc(c.day_name) + '</p>' +
+      '<p><strong>Waktu:</strong> ' + esc(c.start) + ' - ' + esc(c.end) + '</p>' +
+      '<p><strong>Ruangan:</strong> ' + esc(c.room) + '</p>' +
+      '<p><strong>SKS:</strong> ' + esc(c.sks) + '</p>' +
+      (c.is_today ? '<p><strong>Hadir hari ini:</strong> ' + esc(c.present_today) + '</p>' : '') +
+      (c.lecturer_status ? '<p><strong>Kehadiran dosen:</strong> ' + esc(c.lecturer_status) + '</p>' : '') +
+      reason +
+      '<div class="lec-actions"><button class="lec-btn" data-act="attendance" data-id="' + esc(c.id) + '">Kehadiran</button><button class="lec-btn ghost" data-act="recap" data-id="' + esc(c.id) + '">Rekap Absensi</button>' + checkinBtn + act + '</div>' +
+      '</div></div>';
+  }
+
+  async function load() {
+    var data = await api('/api/lecturer/classes');
+    if (!data.success) { $('classGrid').innerHTML = '<p>' + esc(data.message) + '</p>'; return; }
+
+    state.classes = data.classes;
+    state.today = data.today;
+
+    var prevRecap = $('recapClass').value;
+    $('recapClass').innerHTML = '<option value="">-- Pilih kelas --</option>' + data.classes.map(function (c) {
+      return '<option value="' + esc(c.id) + '">' + esc(c.course) + ' (' + esc(c.day_name) + ', ' + esc(c.start) + ')</option>';
+    }).join('');
+    if (prevRecap) $('recapClass').value = prevRecap;
+
+    if (data.lecturer_name) {
+      $('lecAvatar').textContent = initials(data.lecturer_name);
+    }
+
+    $('stTotal').textContent = data.classes.length;
+    $('stToday').textContent = data.classes.filter(function (c) { return c.is_today; }).length;
+    $('stCancel').textContent = data.classes.filter(function (c) { return c.cancelled_today; }).length;
+    $('stPresent').textContent = data.classes.reduce(function (n, c) { return n + (c.is_today ? c.present_today : 0); }, 0);
+
+    $('classGrid').innerHTML = data.classes.length ? data.classes.map(classCard).join('') : '<p>Belum ada kelas untuk akun ini.</p>';
+
+    var byId = {};
+    data.classes.forEach(function (c) { byId[c.id] = c; });
+
+    $('upcomingBox').innerHTML = !data.upcoming_cancellations.length
+      ? '<p class="lec-empty">Tidak ada pembatalan mendatang.</p>'
+      : '<table class="lec-table"><thead><tr><th>Tanggal</th><th>Mata Kuliah</th><th>Alasan</th><th></th></tr></thead><tbody>' +
+        data.upcoming_cancellations.map(function (u) {
+          var c = byId[u.schedule_id];
+          return '<tr><td>' + esc(u.date) + '</td><td>' + esc(c ? c.course : '-') + '</td><td>' + esc(u.reason || '-') + '</td>' +
+            '<td><button class="lec-btn ghost" data-act="uncancel-date" data-id="' + esc(u.schedule_id) + '" data-date="' + esc(u.date) + '">Cabut</button></td></tr>';
+        }).join('') + '</tbody></table>';
+  }
+
+  async function showRecap(id) {
+    var data = await api('/api/lecturer/recap?schedule_id=' + encodeURIComponent(id));
+    if (!data.success) { toast(data.message || 'Gagal memuat rekap.'); return; }
+
+    $('recapTitle').textContent = 'Rekap - ' + data.course;
+    state.recapId = id;
+    $('recapClass').value = String(id);
+    $('recapExport').disabled = false;
+    $('recapInfo').textContent = 'Total pertemuan tercatat: ' + data.meetings + ' | Kelas dibatalkan: ' + data.cancelled;
+
+    $('recapBody').innerHTML = data.students.length
+      ? data.students.map(function (s) {
+          var cls = s.percent >= 75 ? 'good' : (s.percent >= 50 ? 'mid' : 'bad');
+          return '<tr><td>' + esc(s.name) + '</td><td>' + esc(s.nim) + '</td><td>' + esc(s.hadir) + '</td><td>' + esc(s.terlambat) + '</td><td>' + esc(s.alpha) + '</td><td><span class="lec-pill ' + cls + '">' + esc(s.percent) + '%</span></td></tr>';
+        }).join('')
+      : '<tr><td colspan="6" class="lec-empty">Belum ada data mahasiswa.</td></tr>';
+
+    showPage('rekap');
+  }
+
+  // ---------- presensi dosen ----------
+  async function checkin(id) {
+    var data = await api('/api/lecturer/checkin', 'POST', { schedule_id: id });
+    toast(data.message || (data.success ? 'Berhasil.' : 'Gagal.'));
+    if (data.success) load();
+  }
+
+  async function openAttendance(id) {
+    var c = state.classes.filter(function (x) { return String(x.id) === String(id); })[0];
+    var needCheckin = !!(c && c.is_today && !c.cancelled_today && !c.lecturer_status);
+    if (needCheckin) {
+      var res = await api('/api/lecturer/checkin', 'POST', { schedule_id: id });
+      if (res.message && (!res.success || !res.already)) toast(res.message);
+      else if (!res.success) toast('Presensi dosen tidak terkirim (' + (res.detail || 'tanpa pesan') + '). Restart server lalu coba lagi.');
+    }
+    await showAttendance(id);
+    if (needCheckin) load();
+  }
+
+  // ---------- kehadiran per pertemuan ----------
+  async function showAttendance(id, dateStr) {
+    var url = '/api/lecturer/attendance?schedule_id=' + encodeURIComponent(id);
+    if (dateStr) url += '&class_date=' + encodeURIComponent(dateStr);
+    var data = await api(url);
+    if (!data.success) { toast(data.message || 'Gagal memuat kehadiran.'); return; }
+
+    state.hadirId = id;
+
+    var dates = data.meeting_dates.slice();
+    if (dates.indexOf(state.today) === -1) dates.push(state.today);
+    if (dates.indexOf(data.date) === -1) dates.push(data.date);
+    dates.sort().reverse();
+    $('hadirDate').innerHTML = dates.map(function (d) {
+      return '<option value="' + esc(d) + '"' + (d === data.date ? ' selected' : '') + '>' + esc(d) + (d === state.today ? ' (hari ini)' : '') + '</option>';
+    }).join('');
+
+    $('hadirTitle').textContent = 'Kehadiran - ' + data.course;
+    $('hadirInfo').textContent = data.cancelled
+      ? 'Kelas dibatalkan pada tanggal ini' + (data.cancel_reason ? ': ' + data.cancel_reason : '.')
+      : 'Hadir: ' + data.hadir + ' | Terlambat: ' + data.terlambat + ' | Total: ' + data.records.length;
+
+    $('hadirBody').innerHTML = data.records.length
+      ? data.records.map(function (r) {
+          var cls = r.status === 'HADIR' ? 'good' : 'mid';
+          return '<tr><td>' + esc(r.name) + '</td><td>' + esc(r.nim) + '</td><td><span class="lec-pill ' + cls + '">' + esc(r.status) + '</span></td><td>' + esc(r.time) + '</td></tr>';
+        }).join('')
+      : '<tr><td colspan="4" class="lec-empty">Belum ada yang absen pada tanggal ini.</td></tr>';
+
+    var lecName = $('lecName').textContent.trim();
+    var lecStatusHtml;
+    if (data.lecturer) {
+      lecStatusHtml = '<span class="lec-pill ' + (data.lecturer.status === 'HADIR' ? 'good' : 'mid') + '">' + esc(data.lecturer.status) + '</span>';
+    } else if (data.cancelled) {
+      lecStatusHtml = '<span class="lec-pill bad">TIDAK MASUK</span>';
+    } else {
+      lecStatusHtml = '<span class="lec-pill bad">BELUM TERCATAT</span>';
+    }
+    var lecRow = '<tr><td>' + esc(lecName) + ' <span class="lec-pill good">DOSEN</span></td><td>-</td><td>' + lecStatusHtml + '</td><td>' + esc(data.lecturer ? data.lecturer.time : '-') + '</td></tr>';
+    $('hadirBody').insertAdjacentHTML('afterbegin', lecRow);
+
+    showPage('hadir');
+  }
+
+  // ---------- pembatalan ----------
+  function openCancel(id) {
+    var c = state.classes.filter(function (x) { return String(x.id) === String(id); })[0];
+    if (!c) return;
+    state.target = c;
+    $('cancelCourse').textContent = c.course + ' (' + c.day_name + ', ' + c.start + ' - ' + c.end + ')';
+    $('cancelDate').min = state.today;
+    $('cancelDate').value = nextDateForDay(c.day);
+    $('cancelReason').value = '';
+    $('cancelModal').classList.add('active');
+  }
+
+  function closeCancel() {
+    $('cancelModal').classList.remove('active');
+    state.target = null;
+  }
+
+  async function submitCancel() {
+    var c = state.target;
+    if (!c) return;
+    var btn = $('cancelSubmit');
+    btn.disabled = true;
+    var data = await api('/api/lecturer/cancel', 'POST', {
+      schedule_id: c.id,
+      class_date: $('cancelDate').value,
+      reason: $('cancelReason').value
+    });
+    btn.disabled = false;
+    toast(data.message || (data.success ? 'Berhasil.' : 'Gagal.'));
+    if (data.success) { closeCancel(); load(); }
+  }
+
+  async function uncancel(id, date) {
+    var data = await api('/api/lecturer/uncancel', 'POST', { schedule_id: id, class_date: date });
+    toast(data.message || (data.success ? 'Berhasil.' : 'Gagal.'));
+    if (data.success) load();
+  }
+
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-act]');
+    if (!el) return;
+    var act = el.getAttribute('data-act');
+    var id = el.getAttribute('data-id');
+    if (act === 'recap') showRecap(id);
+    else if (act === 'attendance') openAttendance(id);
+    else if (act === 'checkin') checkin(id);
+    else if (act === 'cancel') openCancel(id);
+    else if (act === 'uncancel') uncancel(id, state.today);
+    else if (act === 'uncancel-date') uncancel(id, el.getAttribute('data-date'));
+  });
+
+  $('hadirDate').addEventListener('change', function () { if (state.hadirId) showAttendance(state.hadirId, this.value); });
+  $('hadirRefresh').addEventListener('click', function () { if (state.hadirId) showAttendance(state.hadirId, $('hadirDate').value); });
+  $('recapExport').addEventListener('click', function () {
+    if (state.recapId) window.location.href = '/api/lecturer/recap/export?schedule_id=' + encodeURIComponent(state.recapId);
+  });
+  $('recapClass').addEventListener('change', function () { if (this.value) showRecap(this.value); });
+  $('recapBack').addEventListener('click', function () { showPage('kelas'); });
+  $('cancelClose').addEventListener('click', closeCancel);
+  $('cancelSubmit').addEventListener('click', submitCancel);
+  $('cancelModal').addEventListener('click', function (e) { if (e.target === $('cancelModal')) closeCancel(); });
+
+  $('logoutBtn').addEventListener('click', async function () {
+    try { await api('/api/lecturer/logout', 'POST'); } catch (err) {}
+    window.location.replace('/');
+  });
+
+  // ---------- sidebar mobile ----------
+  var sidebar = $('sidebar'), backdrop = $('sidebarBackdrop'), burger = $('hamburgerBtn'), closeBtn = $('sidebarCloseBtn');
+  function setSidebar(open) {
+    sidebar.classList.toggle('open', open);
+    backdrop.classList.toggle('active', open);
+    document.body.classList.toggle('sidebar-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  burger.addEventListener('click', function () { setSidebar(!sidebar.classList.contains('open')); });
+  closeBtn.addEventListener('click', function () { setSidebar(false); });
+  backdrop.addEventListener('click', function () { setSidebar(false); });
+  sidebar.querySelectorAll('a.menu-item').forEach(function (a) {
+    a.addEventListener('click', function () { setSidebar(false); });
+  });
+
+  $('lecAvatar').textContent = initials($('lecName').textContent);
+  load();
+})();
+</script>
+</body>
+</html>

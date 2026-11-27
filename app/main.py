@@ -17,6 +17,7 @@ from app.face.detector import detect_face
 from app.face.recognizer import recognize_face
 from app.schedule import process_face_attendance, get_dashboard_data
 from app.db import get_db_connection
+from app.lecturer import router as lecturer_router, try_lecturer_login
 
 from pathlib import Path
 from fastapi import Form
@@ -26,6 +27,8 @@ from fastapi.responses import JSONResponse
 app = FastAPI(
     title="Sistem Absensi Universitas ABCD"
 )
+
+app.include_router(lecturer_router)
 
 
 # ============================================================
@@ -126,6 +129,11 @@ async def login(
     password: str = Form(...)
 ):
     try:
+        lecturer_result = try_lecturer_login(request, username, password)
+
+        if lecturer_result is not None:
+            return lecturer_result
+
         user = get_user_by_username(username)
 
         if user is None:
@@ -173,6 +181,8 @@ async def login(
         return {
             "success": True,
             "message": "Login berhasil.",
+            "role": "student",
+            "redirect": "/dashboard",
             "name": user["name"],
             "nim": user["nim"]
         }

@@ -178,12 +178,36 @@ def get_student_attendance(user_id, schedule_id, date_string=None):
 
 
 
+def get_cancelled_ids(class_date):
+    """Set id jadwal yang dibatalkan dosen pada tanggal tertentu."""
+
+    try:
+        with get_db_connection() as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(
+                    "SELECT schedule_id FROM class_cancellations WHERE class_date = %s",
+                    (class_date,)
+                )
+                return {row["schedule_id"] for row in cursor.fetchall()}
+
+    except Exception as e:
+        print("ERROR GET CANCELLED IDS:", repr(e))
+        return set()
+
+
 def record_attendance(student_nim, schedule, window_status):
     """Menyimpan presensi ke Supabase berdasarkan NIM."""
 
     now = datetime.now(WIB).replace(tzinfo=None)
     today = now.date()
     time_display = now.strftime("%H:%M:%S")
+
+    if schedule["id"] in get_cancelled_ids(today):
+        return {
+            "success": False,
+            "attended": False,
+            "message": "Kelas ini dibatalkan oleh dosen hari ini."
+        }
 
     user_id = get_user_id_by_nim(student_nim)
 
@@ -328,6 +352,7 @@ def get_dashboard_data(student_nim):
     today = now.date()
 
     dashboard_data = []
+    cancelled_ids = get_cancelled_ids(today)
 
     try:
         conn = get_db_connection()
@@ -386,6 +411,9 @@ def get_dashboard_data(student_nim):
                     schedule,
                     now
                 )
+
+                if schedule["id"] in cancelled_ids:
+                    dashboard_status = "DIBATALKAN"
 
                 attendance_time = None
 

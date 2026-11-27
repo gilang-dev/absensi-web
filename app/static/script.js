@@ -188,7 +188,7 @@ async function login(event) {
             return;
         }
 
-        window.location.href = '/dashboard';
+        window.location.href = result.redirect || '/dashboard';
 
     } catch (error) {
         console.error('LOGIN ERROR:', error);

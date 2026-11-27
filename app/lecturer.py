@@ -31,6 +31,15 @@ def unauthorized():
     return {"success": False, "message": "Sesi dosen tidak valid. Silakan login ulang."}
 
 
+def verify_password(plain, hashed):
+    """Cek password bcrypt; hash tidak valid dianggap salah, bukan error."""
+    try:
+        return bcrypt.checkpw(plain.encode("utf-8"), str(hashed or "").encode("utf-8"))
+    except ValueError:
+        print("LECTURER PASSWORD ERROR: hash di database bukan bcrypt yang valid")
+        return False
+
+
 def try_lecturer_login(request, nip, password):
     """Login dosen lewat NIP + password (tanpa FaceNet).
 
@@ -52,7 +61,7 @@ def try_lecturer_login(request, nip, password):
     if not row:
         return None
 
-    if not bcrypt.checkpw(password.encode("utf-8"), row["password"].encode("utf-8")):
+    if not verify_password(password, row["password"]):
         return {"success": False, "message": "NIP atau password salah."}
 
     request.session.clear()
@@ -121,9 +130,7 @@ async def lecturer_login(
                 )
                 row = cursor.fetchone()
 
-        if not row or not bcrypt.checkpw(
-            password.encode("utf-8"), row["password"].encode("utf-8")
-        ):
+        if not row or not verify_password(password, row["password"]):
             return {"success": False, "message": "Kode/Email atau password salah."}
 
         request.session["lecturer_code"] = row["code"]
